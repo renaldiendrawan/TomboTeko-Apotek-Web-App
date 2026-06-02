@@ -1,0 +1,51 @@
+@extends('layouts.app')
+
+@section('title', 'Reset Password')
+
+@section('content')
+<div class="row justify-content-center">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-lg-6 d-none d-lg-block" style="background: url('https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=600&auto=format&fit=crop'); background-position: center; background-size: cover;"></div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Buat Password Baru</h1>
+                            </div>
+                            <form class="user" method="POST" action="{{ route('password.update') }}">
+                                @csrf
+                                <input type="hidden" name="token" value="{{ $token }}">
+
+                                <div class="form-group">
+                                    <input type="email" name="email" class="form-control form-control-user @error('email') is-invalid @enderror" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus readonly placeholder="Alamat Email">
+                                    @error('email')
+                                        <span class="invalid-feedback d-block" style="margin-left: 1rem; font-size: 80%;"><strong>{{ $message }}</strong></span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" name="password" class="form-control form-control-user @error('password') is-invalid @enderror" required autocomplete="new-password" placeholder="Password Baru">
+                                        @error('password')
+                                            <span class="invalid-feedback d-block" style="margin-left: 1rem; font-size: 80%;"><strong>{{ $message }}</strong></span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" name="password_confirmation" class="form-control form-control-user" required autocomplete="new-password" placeholder="Ulangi Password">
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                    Simpan Password Baru
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
