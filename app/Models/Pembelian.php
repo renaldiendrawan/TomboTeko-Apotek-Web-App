@@ -11,13 +11,12 @@ class Pembelian extends Model
 
     protected $table = 'pembelian';
 
-    protected $fillable = [
-        'nota',
-        'tgl_nota',
-        'kd_suplier',
-        'diskon',
-        'total_bayar',
-    ];
+    protected $fillable = ['nota', 'tgl_nota', 'user_id', 'kd_suplier', 'diskon', 'total_bayar'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     protected $casts = [
         'tgl_nota' => 'date',

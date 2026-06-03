@@ -13,5 +13,10 @@ class Apoteker extends Model
     protected $table = 'apoteker';
 
     // Mengizinkan kolom-kolom ini untuk diisi data
-    protected $fillable = ['kd_apoteker', 'nm_apoteker', 'jk', 'telepon', 'alamat'];
+    protected $fillable = ['user_id', 'kd_apoteker', 'nm_apoteker', 'jk', 'telepon', 'alamat'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

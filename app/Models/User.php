@@ -16,8 +16,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name', 
-        'email', 
+        'name',
+        'email',
         'password',
         'role', // Wajib ditambahkan agar role bisa diinput
     ];
@@ -43,5 +43,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Relasi 1-to-1 ke profil Apoteker
+    public function apoteker()
+    {
+        return $this->hasOne(Apoteker::class, 'user_id');
+    }
+
+    // Relasi 1-to-Many ke Penjualan
+    public function penjualan()
+    {
+        return $this->hasMany(Penjualan::class, 'user_id');
+    }
+
+    // Relasi 1-to-Many ke Pembelian
+    public function pembelian()
+    {
+        return $this->hasMany(Pembelian::class, 'user_id');
     }
 }

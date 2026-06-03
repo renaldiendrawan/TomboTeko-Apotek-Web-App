@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Pelanggan; // Wajib tambahkan ini
+use App\Models\Pelanggan; 
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB; // Wajib tambahkan ini
+use Illuminate\Support\Facades\DB; 
 
 class RegisterController extends Controller
 {
     use RegistersUsers;
 
+    // Ubah dari '/home' menjadi '/' agar pelanggan baru langsung ke halaman depan
     protected $redirectTo = '/home';
 
     public function __construct()

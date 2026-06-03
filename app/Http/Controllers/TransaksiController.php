@@ -54,6 +54,7 @@ class TransaksiController extends Controller
             $penjualan_id = DB::table('penjualan')->insertGetId([
                 'nota' => $nota,
                 'tgl_nota' => date('Y-m-d'),
+                'user_id' => auth()->user()->id,
                 'kd_pelanggan' => $request->kd_pelanggan,
                 'diskon' => 0,
                 'total_bayar' => $total_bayar,

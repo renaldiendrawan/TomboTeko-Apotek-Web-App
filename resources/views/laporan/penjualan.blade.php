@@ -77,7 +77,8 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Pendapatan Bersih
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">Rp
-                                {{ number_format($total_penjualan, 0, ',', '.') }}</div>
+                                {{ number_format($total_penjualan, 0, ',', '.') }}
+                            </div>
                         </div>
                         <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
                     </div>
@@ -92,7 +93,8 @@
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Diskon Diberikan
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">Rp
-                                {{ number_format($total_diskon, 0, ',', '.') }}</div>
+                                {{ number_format($total_diskon, 0, ',', '.') }}
+                            </div>
                         </div>
                         <div class="col-auto"><i class="fas fa-tags fa-2x text-gray-300"></i></div>
                     </div>
@@ -123,8 +125,9 @@
                         <tr>
                             <th width="15%">Tanggal</th>
                             <th width="15%">No. Nota</th>
-                            <th width="20%">Pelanggan</th>
-                            <th width="35%">Item Obat</th>
+                            <th width="15%">Petugas/Kasir</th>
+                            <th width="15%">Pelanggan</th>
+                            <th width="25%">Item Obat</th>
                             <th width="15%">Total (Rp)</th>
                         </tr>
                     </thead>
@@ -136,6 +139,9 @@
                                 <td class="text-center font-weight-bold text-primary">
                                     <a href="{{ route('transaksi.show', $trx->id) }}" target="_blank">{{ $trx->nota }}</a>
                                 </td>
+
+                                <td class="text-center">{{ $trx->user ? $trx->user->name : 'Admin Sistem' }}</td>
+
                                 <td>{{ $trx->pelanggan ? $trx->pelanggan->nm_pelanggan : 'Pelanggan Umum' }}</td>
                                 <td>
                                     <ul class="mb-0 pl-3">

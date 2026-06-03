@@ -109,19 +109,22 @@
                         <tr>
                             <th width="15%">Tanggal</th>
                             <th width="15%">No. Nota</th>
-                            <th width="20%">Supplier</th>
-                            <th width="35%">Obat yang Dibeli</th>
+                            <th width="15%">Petugas/Admin</th>
+                            <th width="15%">Supplier</th>
+                            <th width="25%">Obat yang Dibeli</th>
                             <th width="15%">Total (Rp)</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($pembelians as $trx)
                             <tr>
-                                <td class="text-center">{{ \Carbon\Carbon::parse($trx->tgl_nota)->translatedFormat('d M Y') }}
-                                </td>
+                                <td class="text-center">{{ \Carbon\Carbon::parse($trx->tgl_nota)->translatedFormat('d M Y') }}</td>
                                 <td class="text-center font-weight-bold text-primary">
                                     <a href="{{ route('pembelian.show', $trx->id) }}" target="_blank">{{ $trx->nota }}</a>
                                 </td>
+                                
+                                <td class="text-center">{{ $trx->user ? $trx->user->name : 'Admin Sistem' }}</td>
+                                
                                 <td>{{ $trx->nm_suplier }}</td>
                                 <td>
                                     <ul class="mb-0 pl-3">

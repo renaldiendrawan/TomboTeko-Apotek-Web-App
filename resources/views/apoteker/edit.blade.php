@@ -35,7 +35,13 @@
                             value="{{ old('nm_apoteker', $apoteker->nm_apoteker ?? '') }}" required>
                         @error('nm_apoteker')<small class="text-danger">{{ $message }}</small>@enderror
                     </div>
-
+                    <div class="col-md-6 form-group mb-3">
+                        <label class="font-weight-bold">Alamat Email (Untuk Login) <span
+                                class="text-danger">*</span></label>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                            value="{{ old('email', $apoteker->user->email ?? '') }}" required>
+                        @error('email')<small class="text-danger">{{ $message }}</small>@enderror
+                    </div>
                     <div class="col-md-6 form-group mb-3">
                         <label class="font-weight-bold">Jenis Kelamin <span class="text-danger">*</span></label>
                         <select name="jk" class="form-control @error('jk') is-invalid @enderror" required>

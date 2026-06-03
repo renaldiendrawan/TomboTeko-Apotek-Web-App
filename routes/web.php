@@ -10,29 +10,23 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PelangganController;
 use App\Models\Obat;
 
+// Menampilkan halaman depan beserta data 6 obat secara acak
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/', function () {
-    // Mengambil 6 data obat secara acak/terbaru yang stoknya lebih dari 0
     $obat_sekilas = Obat::where('stok', '>', 0)->inRandomOrder()->take(6)->get();
-
-    // Mengirim data obat ke halaman welcome
     return view('welcome', compact('obat_sekilas'));
 });
 
 // Route bawaan Laravel untuk Login, Register, dll
 Auth::routes();
 
-// KELOMPOK ROUTE YANG WAJIB LOGIN
+// KELOMPOK ROUTE YANG WAJIB LOGIN (Dapat diakses Admin, Apoteker, & Pelanggan)
 Route::middleware(['auth'])->group(function () {
 
-    // Route Dashboard Utama 
+    // Route Dashboard / Home (Semua role masuk ke sini setelah login)
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    // Route Profil (Bisa diakses user yang login)
+    // Route Profil
     Route::get('/profil', [App\Http\Controllers\ProfileController::class, 'index'])->name('profil.index');
     Route::put('/profil/update', [App\Http\Controllers\ProfileController::class, 'update'])->name('profil.update');
 
@@ -41,16 +35,12 @@ Route::middleware(['auth'])->group(function () {
     // ==========================================
     Route::middleware(['role:admin,apoteker'])->group(function () {
 
-        Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
-
-        // 1. Letakkan rute Kadaluarsa DI ATAS resource
-        Route::get('/obat/kadaluarsa', [App\Http\Controllers\ObatController::class, 'kadaluarsa'])->name('obat.kadaluarsa');
-
-        // 2. Manajemen Obat (CRUD Obat bisa oleh admin & apoteker)
+        // Manajemen Obat
+        Route::get('/obat/kadaluarsa', [ObatController::class, 'kadaluarsa'])->name('obat.kadaluarsa');
         Route::resource('obat', ObatController::class);
 
-        Route::resource('transaksi', App\Http\Controllers\TransaksiController::class);
-
+        // Halaman Utama Transaksi Penjualan (Bisa dilihat Admin & Apoteker)
+        Route::resource('transaksi', TransaksiController::class);
     });
 
     // ==========================================
@@ -58,8 +48,7 @@ Route::middleware(['auth'])->group(function () {
     // ==========================================
     Route::middleware(['role:apoteker'])->group(function () {
 
-        // Transaksi Penjualan Obat
-        Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
+        // Aksi Kasir Spesifik Apoteker (Selain fungsi standard dari Route::resource)
         Route::post('/transaksi/tambah', [TransaksiController::class, 'tambahKeKeranjang'])->name('transaksi.tambah');
         Route::post('/transaksi/checkout', [TransaksiController::class, 'checkout'])->name('transaksi.checkout');
         Route::get('/transaksi/struk/{id}', [TransaksiController::class, 'struk'])->name('transaksi.struk');
@@ -85,12 +74,8 @@ Route::middleware(['auth'])->group(function () {
 
         // Laporan Lengkap
         Route::get('/laporan', [App\Http\Controllers\LaporanController::class, 'dashboard'])->name('laporan.index');
-
-        // Rute Laporan Penjualan:
         Route::get('/laporan/penjualan', [App\Http\Controllers\LaporanController::class, 'penjualan'])->name('laporan.penjualan');
         Route::get('/laporan/penjualan/export', [App\Http\Controllers\LaporanController::class, 'exportPenjualan'])->name('laporan.export_penjualan');
-
-        // Rute Laporan Pembelian (Tambahan Baru):
         Route::get('/laporan/pembelian', [App\Http\Controllers\LaporanController::class, 'pembelian'])->name('laporan.pembelian');
 
         // Master Data Apoteker
@@ -101,6 +86,7 @@ Route::middleware(['auth'])->group(function () {
     // 4. HAK AKSES KHUSUS PELANGGAN
     // ==========================================
     Route::middleware(['role:pelanggan'])->group(function () {
+
         // Halaman melihat daftar obat yang dijual
         Route::get('/katalog-obat', [ObatController::class, 'katalog'])->name('katalog.index');
 

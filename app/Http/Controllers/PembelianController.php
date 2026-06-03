@@ -94,13 +94,14 @@ class PembelianController extends Controller
             foreach ($request->kd_obat as $key => $obat_id) {
                 $subtotal += ($request->harga[$key] * $request->jumlah[$key]);
             }
-            
+
             $total_bersih = $subtotal - $diskon;
 
             // 1. Simpan Header Pembelian
             $pembelian_id = DB::table('pembelian')->insertGetId([
                 'nota' => $nota,
                 'tgl_nota' => date('Y-m-d'),
+                'user_id' => auth()->user()->id, // <-- TAMBAHKAN BARIS INI
                 'kd_suplier' => $request->kd_suplier,
                 'diskon' => $diskon,
                 'total_bayar' => $total_bersih,
@@ -126,7 +127,7 @@ class PembelianController extends Controller
             }
 
             DB::commit();
-            
+
             // Langsung arahkan ke halaman struk/nota pembelian
             return redirect()->route('pembelian.show', $pembelian_id)->with('success', 'Transaksi restock berhasil! Stok obat telah bertambah.');
 

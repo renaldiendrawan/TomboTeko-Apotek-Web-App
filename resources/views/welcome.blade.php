@@ -47,11 +47,40 @@
                 <ul class="navbar-nav ml-auto align-items-center">
                     @if (Route::has('login'))
                         @auth
-                            <li class="nav-item">
-                                <a href="{{ url('/dashboard') }}" class="btn btn-primary rounded-pill px-4 shadow-sm">
-                                    <i class="fas fa-tachometer-alt mr-2"></i> Masuk ke Dashboard
-                                </a>
-                            </li>
+                            @if(auth()->user()->role == 'pelanggan')
+
+                                <li class="nav-item mr-3 mb-2 mb-lg-0 d-flex align-items-center">
+                                    <a href="{{ route('katalog.index') }}" class="nav-link text-dark font-weight-bold">
+                                        <i class="fas fa-pills mr-1 text-primary"></i> Katalog Obat
+                                    </a>
+                                </li>
+
+                                <li class="nav-item mr-4 mb-2 mb-lg-0 d-flex align-items-center">
+                                    <a href="{{ url('/profil') }}" class="nav-link text-dark font-weight-bold">
+                                        <i class="fas fa-user-circle mr-1 text-primary"></i> Profil Saya
+                                    </a>
+                                </li>
+
+                                <li class="nav-item d-flex align-items-center mr-3 mb-2 mb-lg-0">
+                                    <span class="fw-bold text-dark">Halo, {{ auth()->user()->name }}</span>
+                                </li>
+                                <li class="nav-item">
+                                    <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger rounded-pill px-4 shadow-sm">
+                                            <i class="fas fa-sign-out-alt mr-1"></i> Keluar
+                                        </button>
+                                    </form>
+                                </li>
+
+                            @else
+                                <li class="nav-item">
+                                    <a href="{{ url('/dashboard') }}" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                                        <i class="fas fa-tachometer-alt mr-1"></i> Masuk ke Dashboard
+                                    </a>
+                                </li>
+                            @endif
+
                         @else
                             <li class="nav-item mr-3 mb-2 mb-lg-0">
                                 <a href="{{ route('login') }}" class="nav-link text-gray-800 font-weight-bold">
