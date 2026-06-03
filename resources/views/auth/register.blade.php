@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Register - MeditraX')
+@section('title', 'Register - TomboTeko')
 
 @section('content')
     <div class="card o-hidden border-0 shadow-lg my-5">
@@ -14,13 +14,13 @@
                 <div class="col-lg-7">
                     <div class="p-5">
 
-                        <!-- Header: Tombol Back & Logo MeditraX -->
+                        <!-- Header: Tombol Back & Logo TomboTeko -->
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <a href="{{ url('/') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3 shadow-sm">
                                 <i class="fas fa-arrow-left mr-1"></i> Kembali
                             </a>
                             <h4 class="font-weight-bold text-primary mb-0" style="letter-spacing: 1px;">
-                                <i class="fas fa-capsules mr-1"></i> MEDITRAX
+                                <i class="fas fa-capsules mr-1"></i> TomboTeko
                             </h4>
                         </div>
 

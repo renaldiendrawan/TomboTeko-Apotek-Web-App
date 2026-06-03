@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Login - MeditraX')
+@section('title', 'Login - TomboTeko')
 
 @section('content')
     <div class="row justify-content-center">
@@ -21,7 +21,7 @@
                                         <i class="fas fa-arrow-left mr-1"></i> Beranda
                                     </a>
                                     <h4 class="font-weight-bold text-primary mb-0" style="letter-spacing: 1px;">
-                                        <i class="fas fa-capsules mr-1"></i> MEDITRAX
+                                        <i class="fas fa-capsules mr-1"></i> TomboTeko
                                     </h4>
                                 </div>
 

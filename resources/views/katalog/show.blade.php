@@ -89,7 +89,7 @@
                     <i class="fas fa-store fa-4x text-gray-300 mb-4"></i>
                     <h5 class="font-weight-bold text-gray-800 mb-3">Pemesanan Langsung di Apotek</h5>
                     <p class="mb-1 text-gray-600">Pemesanan dan pembelian obat ini dapat dilakukan langsung di kasir
-                        <strong>Apotek MeditraX</strong>.</p>
+                        <strong>TomboTeko Apotek</strong>.</p>
                     <p class="mb-4 text-gray-600">Silakan sebutkan atau tunjukkan Kode Obat berikut kepada petugas kami:</p>
 
                     <div class="bg-light py-3 px-4 rounded border border-primary d-inline-block shadow-sm">

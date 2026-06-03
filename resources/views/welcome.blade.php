@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>MeditraX - Solusi Kesehatan Anda</title>
+    <title>TomboTeko - Solusi Kesehatan Anda</title>
 
     <link href="{{ asset('sbadmin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
@@ -37,7 +37,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top py-3">
         <div class="container">
             <a class="navbar-brand text-primary" href="{{ url('/') }}">
-                <i class="fas fa-pills mr-2"></i>MeditraX
+                <i class="fas fa-pills mr-2"></i>TomboTeko
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,7 +103,7 @@
 
     <header class="hero-bg text-center py-5 mb-5 shadow">
         <div class="container py-5">
-            <h1 class="display-4 font-weight-bold mb-4 text-white">Selamat Datang di MeditraX</h1>
+            <h1 class="display-4 font-weight-bold mb-4 text-white">Selamat Datang di TomboTeko</h1>
             <p class="lead mb-5 text-gray-200">Sistem Informasi Penjualan Obat Terpercaya. Temukan kebutuhan kesehatan
                 Anda dengan mudah, cepat, dan aman.</p>
             <a href="#katalog-preview"
@@ -186,7 +186,7 @@
 
     <footer class="bg-white text-center py-4 shadow-sm mt-5">
         <div class="container">
-            <span class="text-muted font-weight-bold">Copyright &copy; MeditraX {{ date('Y') }}</span>
+            <span class="text-muted font-weight-bold">Copyright &copy; TomboTeko {{ date('Y') }}</span>
         </div>
     </footer>
 

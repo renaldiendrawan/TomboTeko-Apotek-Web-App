@@ -21,7 +21,7 @@
             <div class="card-body p-4">
                 
                 <div class="text-center mb-4">
-                    <h4 class="font-weight-bold text-dark mb-1">APOTEK MEDITRAX</h4>
+                    <h4 class="font-weight-bold text-dark mb-1">TomboTeko Apotek</h4>
                     <p class="small text-muted mb-0">Jl. Kesehatan No. 123, Kab. Nganjuk</p>
                     <p class="small text-muted mb-0">Telp: 0812-3456-7890</p>
                     <hr style="border-top: 2px dashed #bbb;">
