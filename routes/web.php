@@ -92,6 +92,10 @@ Route::middleware(['auth'])->group(function () {
 
         // Halaman melihat detail obat (saat diklik)
         Route::get('/katalog-obat/{id}', [ObatController::class, 'detailKatalog'])->name('katalog.show');
+
+        // Halaman Riwayat Belanja Pelanggan
+        Route::get('/riwayat-belanja', [TransaksiController::class, 'riwayatPelanggan'])->name('riwayat.index');
+        Route::get('/riwayat-belanja/{id}', [TransaksiController::class, 'showRiwayatPelanggan'])->name('riwayat.show');
     });
 
 });

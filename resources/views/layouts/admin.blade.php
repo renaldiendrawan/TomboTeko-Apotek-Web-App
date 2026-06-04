@@ -109,6 +109,14 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('riwayat.index') }}">
+                        <i class="fas fa-history"></i>
+                        <span>Riwayat Belanja</span>
+                    </a>
+                </li>
+                
+
                 <li class="nav-item {{ request()->routeIs('profil.*') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('profil.index') }}">
                         <i class="fas fa-fw fa-user"></i>

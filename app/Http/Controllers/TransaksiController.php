@@ -131,4 +131,56 @@ class TransaksiController extends Controller
         return view('transaksi.show', compact('penjualan', 'details'));
     }
 
+    /**
+     * KHUSUS PELANGGAN: Menampilkan Daftar Riwayat Belanja
+     */
+    public function riwayatPelanggan()
+    {
+        // Cari ID pelanggan berdasarkan nama user yang sedang login
+        $pelanggan = DB::table('pelanggan')->where('nm_pelanggan', auth()->user()->name)->first();
+
+        if (!$pelanggan) {
+            $riwayats = collect(); // Kosong jika belum ada transaksi
+        } else {
+            // Ambil histori transaksi khusus untuk pelanggan ini
+            $riwayats = DB::table('penjualan')
+                ->where('kd_pelanggan', $pelanggan->id)
+                ->orderBy('tgl_nota', 'desc')
+                ->orderBy('id', 'desc')
+                ->paginate(10);
+        }
+
+        return view('pelanggan.riwayat.index', compact('riwayats'));
+    }
+
+    /**
+     * KHUSUS PELANGGAN: Menampilkan Detail/Struk Riwayat
+     */
+    public function showRiwayatPelanggan($id)
+    {
+        $pelanggan = DB::table('pelanggan')->where('nm_pelanggan', auth()->user()->name)->first();
+
+        // --- UBAH BAGIAN INI ---
+        // Lakukan JOIN ke tabel users untuk mendapatkan nama kasir
+        $penjualan = DB::table('penjualan')
+            ->leftJoin('users', 'penjualan.user_id', '=', 'users.id')
+            ->select('penjualan.*', 'users.name as nama_kasir')
+            ->where('penjualan.id', $id)
+            ->where('penjualan.kd_pelanggan', $pelanggan->id ?? 0)
+            ->first();
+        // -----------------------
+
+        if (!$penjualan) {
+            return redirect()->route('riwayat.index')->with('error', 'Transaksi tidak ditemukan atau bukan milik Anda.');
+        }
+
+        $details = DB::table('penjualan_detail')
+            ->join('obat', 'penjualan_detail.kd_obat', '=', 'obat.id')
+            ->select('penjualan_detail.*', 'obat.nm_obat', 'obat.satuan')
+            ->where('penjualan_detail.nota', $id)
+            ->get();
+
+        return view('pelanggan.riwayat.show', compact('penjualan', 'details'));
+    }
+
 }
