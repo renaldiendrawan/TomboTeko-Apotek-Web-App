@@ -268,8 +268,9 @@ class ObatController extends Controller
         $filter_jenis = $request->query('jenis');
         $sort = $request->query('sort');
 
-        // Query dasar: Hanya tampilkan obat yang stoknya lebih dari 0
-        $query = Obat::where('stok', '>', 0);
+        // Query dasar: Hanya tampilkan obat yang stoknya > 0 DAN belum kedaluwarsa
+        $query = Obat::where('stok', '>', 0)
+            ->whereDate('tanggal_kedaluwarsa', '>=', Carbon::today()); // <-- Tambahan filter ini
 
         // 1. Logika Pencarian
         if ($search) {

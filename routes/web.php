@@ -12,7 +12,12 @@ use App\Models\Obat;
 
 // Menampilkan halaman depan beserta data 6 obat secara acak
 Route::get('/', function () {
-    $obat_sekilas = Obat::where('stok', '>', 0)->inRandomOrder()->take(6)->get();
+    $obat_sekilas = \App\Models\Obat::where('stok', '>', 0)
+        ->whereDate('tanggal_kedaluwarsa', '>=', now()) // <-- TAMBAHKAN BARIS INI
+        ->inRandomOrder()
+        ->take(6)
+        ->get();
+
     return view('welcome', compact('obat_sekilas'));
 });
 

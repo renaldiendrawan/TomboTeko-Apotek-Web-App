@@ -76,40 +76,47 @@ class PembelianController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi
+        // 1. Validasi (Tambahkan aturan untuk diskon)
         $request->validate([
             'kd_suplier' => 'required',
             'kd_obat' => 'required|array',
             'jumlah' => 'required|array',
             'harga' => 'required|array',
+            'diskon' => 'nullable|numeric|min:0' // <-- Memastikan diskon adalah angka tidak minus
         ]);
 
         DB::beginTransaction();
         try {
             $nota = 'PEM-' . date('YmdHis');
             $subtotal = 0;
+
+            // 2. Tangkap nilai diskon
             $diskon = $request->diskon ?? 0;
 
-            // Hitung subtotal
+            // 3. Hitung subtotal
             foreach ($request->kd_obat as $key => $obat_id) {
                 $subtotal += ($request->harga[$key] * $request->jumlah[$key]);
             }
 
+            // 4. Hitung total bersih dan cegah angka minus
             $total_bersih = $subtotal - $diskon;
+            if ($total_bersih < 0) {
+                $total_bersih = 0;
+            }
 
-            // 1. Simpan Header Pembelian
+            // 5. Simpan Header Pembelian
             $pembelian_id = DB::table('pembelian')->insertGetId([
                 'nota' => $nota,
                 'tgl_nota' => date('Y-m-d'),
-                'user_id' => auth()->user()->id, // <-- TAMBAHKAN BARIS INI
+                'user_id' => auth()->user()->id,
                 'kd_suplier' => $request->kd_suplier,
-                'diskon' => $diskon,
-                'total_bayar' => $total_bersih,
+                'diskon' => $diskon, // <-- Simpan nilai diskon aktual
+                'total_bayar' => $total_bersih, // <-- Simpan hasil perhitungan akhir
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
 
-            // 2. Simpan Detail & Tambah Stok
+            // 6. Simpan Detail & Tambah Stok
             foreach ($request->kd_obat as $key => $obat_id) {
                 $jumlah_beli = $request->jumlah[$key];
 
